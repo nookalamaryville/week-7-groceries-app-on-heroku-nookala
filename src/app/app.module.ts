@@ -10,6 +10,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { GroceryServiceProvider } from '../providers/grocery-service/grocery-service';
+import { InputDialogServiceProvider } from '../providers/input-dialog-service/input-dialog-service';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    GroceryServiceProvider,
+    InputDialogServiceProvider
   ]
 })
 export class AppModule {}
