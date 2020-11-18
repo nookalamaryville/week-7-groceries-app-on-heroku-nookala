@@ -41,13 +41,21 @@ export class HomePage {
     toast.present();
     this.inputDialogService.showModalPrompt(item, index);
   }
-  removeItem(item, index){
-    console.log("Removing Item - " + item, index);
+  shareItem(item, index){
+    console.log("Sharing Item - " + item, index);
     const toast = this.toastCtrl.create({
-      message: 'Removing Item -' + item.name +', ' + item.quantity,
+      message: 'Sharing Item - ' + item.name +', ' + item.quantity,
       duration: 3000
     });
     toast.present();
-    this.dataService.removeitem(index)
+  }
+  removeItem(item, index){
+    console.log("Removing Item - " + item, index);
+    const toast = this.toastCtrl.create({
+      message: 'Removing Item - ' + item.name +', ' + item.quantity,
+      duration: 3000
+    });
+    toast.present();
+    this.dataService.removeitem(index);
   }
 }
