@@ -13,6 +13,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { GroceryServiceProvider } from '../providers/grocery-service/grocery-service';
 import { InputDialogServiceProvider } from '../providers/input-dialog-service/input-dialog-service';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { HttpClientModule } from '@angular/common/http';
+import { ApiProvider } from '../providers/api/api';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     TabsPage
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, 
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -40,7 +43,8 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GroceryServiceProvider,
     InputDialogServiceProvider,
-    SocialSharing
+    SocialSharing,
+    ApiProvider
   ]
 })
 export class AppModule {}

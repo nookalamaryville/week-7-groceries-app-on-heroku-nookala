@@ -12,38 +12,46 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 export class HomePage {
 
   title = "Grocery"
+
+  items = [];
+  errorMessage: string;
   
   constructor(public navCtrl: NavController, public toastCtrl: ToastController, public dataService: GroceryServiceProvider, public inputDialogService: InputDialogServiceProvider, public socialSharing: SocialSharing) {
-
+    dataService.dataChanged$.subscribe((dataCahnged: boolean) => {
+      this.loadItems();
+    });
+  }
+  ionViewDidLoad(){
+    this.loadItems();
   }
   loadItems(){
-    return this.dataService.getItems();
+    this.dataService.getItems()
+      .subscribe(items => this.items = items, error => this.errorMessage = <any>error);
   }
   addItem(){
     this.inputDialogService.showItemPrompt();
   }  
-  editItem(item, index){
-    console.log("Edit Item - " + item);
+  editItem(item){
     const toast = this.toastCtrl.create({
-      message: 'Editing Item - ' + index + " ...",
+      message: 'Editing Item - ' + item._id + " ...",
       duration: 3000
     });
     toast.present();
-    this.inputDialogService.showItemPrompt(item, index);
+    this.inputDialogService.showItemPrompt(item, item._id);
   }
   addModalItem(){
     this.inputDialogService.showModalPrompt();
   }
-  editModalItem(item, index){
+  editModalItem(item){
     const toast = this.toastCtrl.create({
-      message: 'Editing Item - ' + index + " ...",
+      message: 'Editing Item - ' + item._id + " ...",
       duration: 3000
     });
     toast.present();
-    this.inputDialogService.showModalPrompt(item, index);
+    this.inputDialogService.showModalPrompt(item, item._id);
   }
-  shareItem(item, index){
-    console.log("Sharing Item - " + item, index);
+  shareItem(item){
+    console.log("Sharing Item - ", item);
     const toast = this.toastCtrl.create({
       message: 'Sharing Item - ' + item.name +', ' + item.quantity,
       duration: 3000
@@ -57,13 +65,13 @@ export class HomePage {
       console.log("Sorry, error while sharing.")
     })
   }
-  removeItem(item, index){
-    console.log("Removing Item - " + item, index);
+  removeItem(item){
+    console.log("Removing Item - ", item.name, item._id);
     const toast = this.toastCtrl.create({
       message: 'Removing Item - ' + item.name +', ' + item.quantity,
       duration: 3000
     });
     toast.present();
-    this.dataService.removeitem(index);
+    this.dataService.removeitem(item._id);
   }
 }

@@ -16,16 +16,16 @@ export class InputDialogServiceProvider {
     console.log('Hello InputDialogServiceProvider Provider');
   }
   
-  showModalPrompt(item?, index?) {
+  showModalPrompt(item?, id?) {
     if(item===undefined){
       item = {'name':'','quantity':1};
     }
     const modal = this.modalCtrl.create("ModalPage", {data: item});
     modal.present();
-    modal.onDidDismiss(data=>{ //This is a listener which wil get the data passed from modal when the modal's view controller is dismissed
+    modal.onDidDismiss(data => { //This is a listener which wil get the data passed from modal when the modal's view controller is dismissed
       if(data!==undefined) {
-        if(index !== undefined){
-          this.dataService.editItem(data, index);
+        if(data._id !== undefined){
+          this.dataService.editItem(data);
         }
         else{
           this.dataService.addItem(data);
@@ -33,7 +33,8 @@ export class InputDialogServiceProvider {
       }
     })
   }
-  showItemPrompt(item?, index?) {
+  showItemPrompt(item?, id?) {
+    console.log(id);
     const prompt = this.alertCtrl.create({
       title: item? 'Edit Item' : 'Add Item',
       message: item? "Please edit item..." : "Please enter gorcery item...",
@@ -59,8 +60,9 @@ export class InputDialogServiceProvider {
         {
           text: 'Save',
           handler: item => {
-            if(index !== undefined){
-              this.dataService.editItem(item, index);
+            if(id !== undefined){
+              item._id = id;
+              this.dataService.editItem(item);
             }
             else{
               this.dataService.addItem(item);

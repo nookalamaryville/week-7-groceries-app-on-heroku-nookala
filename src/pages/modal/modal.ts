@@ -28,7 +28,6 @@ export class ModalPage {
   }
   ionViewWillLoad() {
     this.item = this.navParams.get("data");
-    this.title = this.item.name===''?"Add Grocery": "Edit Grocery";
-    console.log(this.selectCount);
+    this.title = this.item.name === ''?"Add Grocery": "Edit Grocery";
   }
 }
