@@ -15,7 +15,8 @@ export class GroceryServiceProvider {
   items: any = [];
    dataChanged$:  Observable<boolean>;
    private dataChangeSubject: Subject<boolean>;
-   baseURL = "http://localhost:8080";
+   //baseURL = "http://localhost:8080";
+   baseURL = "https://groceries-server-nookala.herokuapp.com";
    
   constructor(public http: HttpClient) {
     console.log('Hello GroceryServiceProvider Provider');
